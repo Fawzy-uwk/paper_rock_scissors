@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Game from "./Components/Game";
 import Score from "./Components/Score";
 import Modal from "./Components/Modal";
@@ -13,29 +13,7 @@ function App() {
   const [result, setResult] = useState("none");
   const [winner, setWinner] = useState("none");
 
-  const handleResult = () => {
-    console.log("handleResult()");
-    if (value === opponentValue) {
-      setResult("Draw 😇 ");
-      setWinner("none");
-    } else if (
-      (value === "rock" && opponentValue === "scissor") ||
-      (value === "paper" && opponentValue === "rock") ||
-      (value === "scissor" && opponentValue === "paper")
-    ) {
-      setResult("You Win 😍 ");
-
-      setWinner("player");
-      setScore(score + 1);
-    } else if (
-      (opponentValue === "rock" && value === "scissor") ||
-      (opponentValue === "paper" && value === "rock") ||
-      (opponentValue === "scissor" && value === "paper")
-    ) {
-      setResult("You Lose 😢 ");
-      setWinner("computer");
-    }
-  };
+  
 
   return (
     <div className="App relative">
@@ -64,7 +42,7 @@ function App() {
           result={result}
           setResult={setResult}
           winner={winner}
-          handleResult={handleResult}
+          setWinner={setWinner}
         />
       )}
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function InGame({
   value,
@@ -7,18 +7,42 @@ function InGame({
   setGameMode,
   opponentValue,
   result,
-  handleResult,
+  setWinner,
+  setScore,
+  
 }) {
   const [showContent, setShowContent] = useState(false);
+
+  const handleResult = useCallback(() => {
+    if (value === opponentValue) {
+      setResult("Draw 😇 ");
+      setWinner("none");
+    } else if (
+      (value === "rock" && opponentValue === "scissor") ||
+      (value === "paper" && opponentValue === "rock") ||
+      (value === "scissor" && opponentValue === "paper")
+    ) {
+      setResult("You Win 😍 ");
+      setWinner("player");
+      setScore(score=>score + .5);
+    } else if (
+      (opponentValue === "rock" && value === "scissor") ||
+      (opponentValue === "paper" && value === "rock") ||
+      (opponentValue === "scissor" && value === "paper")
+    ) {
+      setResult("You Lose 😢 ");
+      setWinner("computer");
+    }
+  }, [value, opponentValue, setResult, setScore, setWinner]);
 
   useEffect(() => {
     // Simulate loading or any other asynchronous operation
     setTimeout(() => {
       setShowContent(true);
-      handleResult();
     }, 500);
-    
-  }, []);
+    handleResult(); // Call handleResult after the delay
+  }, [opponentValue, setResult, setScore, setWinner, value, handleResult]);
+
   return (
     <div className={!showContent ? "container hidden" : "container"}>
       <div className="in">
