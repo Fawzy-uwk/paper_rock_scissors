@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Game from "./Components/Game";
 import Score from "./Components/Score";
 import Modal from "./Components/Modal";
