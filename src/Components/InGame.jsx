@@ -24,7 +24,7 @@ function InGame({
     ) {
       setResult("You Win 😍 ");
       setWinner("player");
-      setScore(score=>score + .5);
+      setScore(score=>score + 1);
     } else if (
       (opponentValue === "rock" && value === "scissor") ||
       (opponentValue === "paper" && value === "rock") ||
